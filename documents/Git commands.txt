@@ -1,0 +1,162 @@
+GitHub is free when you keep it public that is anyone can read your code.
+GitHub is not free when you keep it private that is only you can read your code.
+
+step1: create new folder ex: "Git Hub Repository"
+step2: go into the folder, right click, click on "Git bash here"
+
+
+1. git status 			=> shows if this folder is git repository or not
+2. git --version		=> shows the version
+3. git init     		=> makes the folder a git repository (that also means .git hidden folder is created)
+4. create files in "Git Hub Repository" folder ex: html.txt, python.txt
+5. git status (this will throw errors saying you have two files in the repository but the changes are not still commited)
+6. git add .     		=> this command adds those files from "working directory" to "staging area" before adding into "Git Hub Repository"
+7. git status 			=> this time no error will be thrown, because files are already added to the "staging area")
+8. git commit -m "Version1" 	=> this the syntax of the commit command, in double quoted a message is written. ex: "this my first version of the software" this command will actuall add your content to the "Git Hub Repository"
+9. git log		  	=> this command tells you who made what changes(in case when multiple developers are working on the same project)
+
+
+10. git config --global user.email "chaitanyagaikwad47@gmail.com" here global means, all the repositories linked to this email address.
+11. git config --global user.name "chaitanya" here global means, all the repositories linked to this name.
+Note: you can skip writing "--global" but then this will be considered to only this repository, and not all. and one more this it is not necessary to give legit "email address" and "user name"
+
+12. Now i made some changes only in html file not in python.
+13. git add . 			=> when you run this command only the file in which changes are made will be added to "staging area" not all all files unnecessarily.
+
+14. you can download version1 even though the version has increased now.
+15. git remote rm origin 	=> this command is used to remove remote (in this case my remote name is origin)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1. go to github site
+2. create new repository
+3. create remote origin (remote origin is nothing but the place/server where files will be pushed or pulled)  
+   Syntax: git remote add origin url_where_files_will_be_pushed (once you run this command, git knows where to push new files now) [url changes with change in ssh or https]
+4. git push -u origin master (this threw an error "authenticity of host(github.com) cannot be established") [Note: this error is because of ssh key maybe] SSH key is something that allows your computer to add files to github-repository
+
+5. how to generate ssh key:
+	1. ssh-keygen -t ed25519 -C "your_email@example.com"    => this is used to generate ssh key
+	2. eval `ssh-agent -s` 		 	=> this command to run ssh agent	
+	3. ssh-add ~/.ssh/id_ed25519 	 	=> this command is used to add id of the key.
+	4. clip < ~/.ssh/id_ed25519.pub 	=> this command is used to copy the (you can litterally try cntl+v to check: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEfkIeAE0QKXSDOOuOKOMRvuAvSV68a4KhkKJNr4hO5f chaitanyagaikwad47@gmail.com
+6. git pull origin master  			=> this command is used to pull the files from github
+7. git diff file_name				=> after running get log if you get error saying file has been modified then use this command to see what modifications are made.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1. i made modification in file and saved it.
+2. ran "git status" command, got an error."
+3. ran "git diff" command, showed changes that were made.
+4. ran "git status", showed no errors, because after making changes file is save at "staged".
+5. ran "git diff --staged" command, showed changed that were made.
+
+At this point keep in mind that, we still have not commited any changes, however file is stored at staged level ,now we realize that changes should not be made. So, in order to reverse those changes, we simply make it unstaged
+6. ran "git reset", this will unstage all the files. 
+7. ran "git checkout ." (you can change even single file, but in my case my file name contains space so maybe that is the reason it not happening) to veryfiy you can also check by opening file in the folder
+------------------------------------------------------------------------------------------------------------------------------
+
+1. "git pull" is used to get all the changes made in remote repository.
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1. adding to staged can be done in 3 different ways:
+	1. git add .  	=> this means, all will be staged (except deleted files).
+	2. git add -u	=> this means, all will be staged even previously deleted files, (except new files)
+	3. git add -A	=> this means, all will be staged (new, deleted, modified files).
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cloning repository:
+
+1. create new folder anywhere you want ex: "Cloned_Repository"
+2. open git bash from "Cloned_Repository"
+3. goto github account, go into the repository you want, click on green button "code", select SSH, copy the url, get back to bash terminal.
+4. run command "git clone paste_here_copied_url", a new folder will be created by repository name, if dont want new folder then simply add " ." (space period)
+
+question: why not traditional way of cloning:
+ans: in traditional way, git-hub will provide you repository in zip format which contains everything, in .get folder which is hidden and the folder we are looking for. For us .get folder is of no use. so to get what is needed we use this different way.
+
+question: what is contained in .get folder?
+ans: as you know you can alter changes made in git hub, that means nothing is deleted from git-hub. So you unnecessarily get this folder.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+.gitignore: this is something you use when you dont want to upload some files/folders.
+
+1. go into repository folder and open git bash
+2. run "touch .gitignore", this will create a file named ".gitignore" for you.
+3. open this file(in notepad: command "notepad .gitignore")
+4. mention the names of files/folders in this folder. ex: *.py [hit enter], how_to.txt[hit enter], __env__/  
+	1. *.py 	=> this means all files with extension .py will be ignored.
+	2. how_to.txt	=> this means only this particular file will be ignored.
+	3. __env__/	=> slash means, this folder will be ignored.
+5. use this link to refer what are the things that should be mostly ignored: https://github.com/github/gitignore
+6. [note: i didnt implement myself]
+7. when you feel .gitignore is not working, empty the cache: "git rm -r --cached ."
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+branching: 
+By default the branch is master.
+But you other branches as well.
+master branch is like official and other are like for testing purpose.
+when the testing code works fine we finally merge testing branch to master branch.
+
+steps:
+1. create a new folder named "test-login".
+2. create a new file in "add to cart" named "login_code".
+3. from test-login folder open git-bash.
+4. run command "git init". (this creates hidden .git folder, to verify to can check by running "ls -la")
+5. run command "git add ."
+6. run command "git commit -m "add to cart works fine" ".
+7. go to git-hub account, create new repository "Online-shopping".
+8. copy SSH url 
+9. in terminal "git remote add origin git@github.com:Chaitanya1Github/Online-shopping.git", this command creates remote on git-hub.
+10. "git push -u origin master", this command pushes all the content of the folder into repository.
+
+twist is here: 
+A new module "login" is to be added into the existing code.
+the risk is, existing code might get affected.
+so you, create this code separately. This separate section is called another branch.
+And finally when all code works fine, go into master branch and merge another branch.
+
+steps:
+1. run: "git branch", this will give you all the currently existing branches, for now we have only "master" branch
+2. run: "git branch login-system", this command will create new branch named "login-system"
+3. Now run: "git branch", you will see two branches, one is master and another is login-system, out of these branches, master is highlighted as green, which means master is selected.
+4. run: "git checkout login-system", this will switch your branch from master to login-system. 
+5. Now if you run: "git branch", you will see "login-system" is highlighted as green. Now, we are in login-system branch.
+6. create new file "login-code" in folder "test-login".
+7. run: "git add ."
+8. run command "git commit -m "added login system" ". 
+9. run: "git push origin login-system"			[Note: previously we wrote: "git push -u origin master", because the branch was master, and -u means 'by default master, so next you will have to write just 'git push', so it will automatically master branch]
+10. now you can check yourself, master contains only one file(add to cart), while login-system contains two files(add to cart, login code)
+
+to merge with master:
+11. run: "git checkout master"
+12. run: "git merge login-system", this command will merge both branches.
+13. run: "git push -u origin master"
+[now you can literally visit git-hub and check master branch, it`ll have all two files]
+
+
+deleting branch:
+----------------
+there are two commands to delete branches.
+1. "git push origin --delete login-system", this command deletes branch from git-hub repository. but still login-system is present in computer system.
+2. "git branch -d login-system", this command deletes branch from computer.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

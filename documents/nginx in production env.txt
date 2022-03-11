@@ -1,0 +1,2 @@
+1. setup docker file
+2. add uwsgi to requirements.txt. uwsgi is a tools which is used to run python app in production environment

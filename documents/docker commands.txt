@@ -1,0 +1,359 @@
+1. docker info
+this shows information of client, server, number of containers, number of running containers, number of images
+
+2. docker version
+this shows information but 'docker info' looks better
+
+3. docker container ls	 OR 	docker ps
+this shows only running containers
+
+4. docker container ls -a	OR	docker ps -a
+this shows all containers
+
+5. docker network ls
+this shows networks
+
+6. docker images	OR	docker image ls
+this shows list of images
+
+7. docker run ubuntu cat /etc/os-release
+this will create a new container
+where:
+ubuntu is an image_name
+cat is a command to read a file
+anything after ubuntu is optional
+if ubuntu image is found in local cache then docker will download it from docker hub
+
+8. docker container run ubuntu sleep 60
+this will start the container and will remain up only for 60 seconds
+
+9. docker container rm container1_id container2_id container3_id
+this will remove containers as many as you want
+
+10. docker container start 89994a4b3a41
+this will start the existing container
+89994a4b3a41 is the container ID
+here previously, the starting command was sleep 60, so this even though you simply started the container, nonetheless it will start for 60 sec only using previous command
+
+11. docker container stop container_id
+this will stop the container
+
+12. running container in background
+docker container run ubuntu sleep 30	[when you run this command, it will freeze you terminal for 30 seconds, and you wont be able to use terminal to 30 seconds. to solve this issue we run container in background]
+docker container run -d ubuntu sleep 30 [this command will not freeze your terminal, -d is short for detach]
+
+
+13. to enter into container
+docker container run -it ubuntu		OR	docker run -it ubuntu		OR 	docker container run -it ubuntu /bin/bash	OR	docker container exec -it 62de8659e4dd /bin/bash	or	docker container exec -it 5037476bac04 /bin/sh
+where; 
+ubuntu: an image_name
+62de8659e4dd: container id
+
+14. once you enter in container, root@4562089b6819:/# you can use linux commands like- 
+	a) ls
+	b) apt update
+	c) apt list
+	d) apt install python
+    you can install as many softwares you want in your in this container. And bear in mind, these softwares remain installed only in this container. when this container will start, these softwares will also run.
+
+15. docker run -it ubuntu	[you entered in container: root@4562089b6819:/#]
+    ctrl+d			[you exited the container, and container stopped instinctively. But what if we want to exit the container yet want the container to be running in background]	
+    ctrl+p+q			[instead of ctrl+d use this command to keep conatiner running in background even though came out of the container]
+
+16. docker container ls -aq
+this command will show all the container IDs
+
+17. to remove all the container you can pass the above command to rm command
+    docker container rm $(docker container ls -aq)
+
+
+18. container inspection
+docker container run -d nginx     [this command will download image from docker hub and run it in background. It will run in background because of -d]
+docker container inspect da645    [this command will show details about the container 'da645'. detail includes IP address, port and many more]
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+19. ipconfig
+info of our computer
+
+20. to see the logs of the container
+docker container logs 68ad714225f9
+
+21. to see the processes running in a container
+docker container top 68ad714225f9
+
+you will see that the on host operating a process is running which is a container. thus it is proven that container is not a VM but it is a process
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+22. to see the status of runnning containers [eg. memory and cpu usages and many more]
+docker container stats
+you will notice here that, cpu and memory usage is fairly low. this what a docker is known for. we can create many containers for single image. If the same case was to happen with VM. it would take atleast 512MB RAM.
+
+
+23. port forwarding: 
+what is port: is a number which listens the requests
+port forwarding is transfering request to another machine. your machine listens requests on some port number these requests are to be transfered container(nginx) port.
+docker container run -d -p 3600:80 --name test_nginx  nginx
+where;
+-d: run container in background
+-p: port
+3600: port number at which our computer listens
+80: port number on which nginx listens
+test_nginx: new name of container
+nginx: image name
+-p 3600:80: any request comes at port 3600 must be forwarded to port 80
+
+go into browser type: 192.168.43.57:3600
+where;
+192.168.43.57: your_computer`s_ip_address
+3600: port_number_at_which_your_computer_listens
+
+24. to check which port is listening
+netstat -a
+
+25. rename container
+docker container rename 632b357be9fd nginx_test
+where;
+632b357be9fd: container_id 
+nginx_test: container new_name
+
+26. to restart container
+docker container restart e2e9e7d902ba
+where; 
+e2e9e7d902ba: container_id
+
+
+27. attch (foreground)
+docker container run -it ubuntu /bin/bash	[no doubt this will open ubuntu terminal, root@1ee5ec884012:/#]
+docker container run -itd ubuntu /bin/bash	[but when you use -itd, this will open ubuntu terminal in background, you will thrown out of ubuntu terminal]
+docker container attach 1ee5ec88401207829d	[but when you detach the container, that means ubuntu terminal is not running in background, so you will be thrown back in ubuntu terminal, root@1ee5ec884012:/#]
+where;
+ubuntu: image name
+1ee5ec88401207829d: container name
+-itd: interactive terminal detach
+
+
+28. to bring container in foreground which was running in background
+docker container attach 9626e003de59
+where;
+9626e003de59: container_id
+
+29. to kill running container
+docker container kill 1ee5ec884012
+this will abruptly stop the running container forcefully
+
+30. wait
+docker container start 1ee5ec884012	[in terminal 1]
+docker container wait 1ee5ec884012	[in terminal 1]
+docker container stop 1ee5ec884012	[in terminal 2]
+as soon the running container 1ee5ec884012 stops, it will show its running status which is 0. but you need to stop the running container from new terminal so that you can see status in current terminal
+
+
+31. pause and unpause
+docker container pause 1ee5ec884012		[pause the running container]
+docker container unpause 1ee5ec884012		[unpause the paused container]
+
+
+32. to delete all non running containers
+docker container prune				[before deletion, askes confirmation]
+docker container prune -f			[deletes without confirmation]
+
+33. port status
+to see which port is connected which port
+docker container port 632b357be9fd
+where;
+632b357be9fd: container id
+
+34. create container
+	1. docker container create ubuntu	[create and run]
+	2. docker container run ubuntu		[only create]
+where;
+ubuntu is an image
+
+35. diff
+	- container is created using image
+	- when container is created it uses files of its image and some additional files also get created into container
+	- to see those additional(different) files we use diff command
+	- you can make changes in container but not in image
+    docker container diff 632b357be9fd
+    where;
+    632b357be9fd: container id
+
+    output shows something like: A, C, D and as such. which means:
+    A: added new file or directory
+    C: changed directory or file
+    D: deleted file of directory
+
+live proof:
+step1: open power shell 1, start ubuntu(image) container
+step2: open new power shell 2(second power shell window)
+       run command: docker container diff 1ee5ec884012			[1ee5ec884012: container id]
+       output: in output you may or may not see some files
+step3: open power shell 1, enter into the ubuntu container by: docker container attach 1ee5ec884012	OR	in step1 you could have entered directly in new container: docker run -it ubuntu
+step4: cd /root
+step5: touch file1.txt
+step6: open shell 2, run command: docker container diff 1ee5ec884012
+       output: you will see newly created file.txt
+
+36. copy file/folder from host machine to container
+docker container cp folder1/ b4b31a150e19:/tmp/
+where;
+cp: copy
+folder1: folder to be copied (path)
+b4b31a150e19: container id
+tmp: destination path
+
+
+37. import and export container
+
+export
+-------
+step1: docker container run -it ubuntu /bin/bash	[create a container using image of ubuntu]
+step2: ctrl+p+q						[came out of ubuntu terminal, keep it in running state]
+step3: apt update					[update ubuntu database]
+step4: apt install python -y				[install python in this container, with 'yes' to every message]
+step5: python						[check if python is installed successfully]
+
+step6: docker container export 5967c435adc3 > Desktop/ubuntu_python_container1.tar	OR	docker container export 5967c435adc3 -o Desktop/ubuntu_python_container1.tar  [export the container]
+where;
+5967c435adc3: container id
+Desktop/: loction where we want the exported tar file
+ubuntu_python_container1.tar: name of file with extension .tar
+
+[note: volume mounted or data is not carried in tar file, it is just file structure]
+
+import
+-------
+step1: docker image import Desktop/ubuntu_python_container2.tar image_from_tar_file	[an image is created from by importing tar file]
+where;
+Desktop/: path from where tar file is to be imported
+ubuntu_python_container2.tar: this is the tar file
+image_from_tar_file: any random name for image which will be created from tar file
+
+step2: docker container run -it image_from_tar_file /bin/bash				[run image to get a container]
+step3: python										[cross check if python is still installed in this container]
+
+
+38. remove container
+	1. docker container rm -f e2e9e7d902ba						[this removes stopped/running container]
+	2. docker container rm e2e9e7d902ba						[this removes only stopped container]
+
+
+39. create image
+	1. docker container commit --author "chaitanya" -m "this is an image of ubuntu which contains python and some random files in it" 2b8e88865878 my_ubuntu_python_image     [method1, -m: message]
+	2. there is another method using 'build'. but that is in case of Dockerfile
+
+40. create a pushable image to docker hub
+	1. docker commit 46b19aa8c8ab chaitanya2021/my_ubuntu_python_image			[create pushable image using container_id (46b19aa8c8ab)]
+	2. docker image tag my_ubuntu_python_image chaitanya2021/my_ubuntu_python_image		[create pushable image using using existing image]
+	   where;
+	   my_ubuntu_python_image: is the images you want to make pushable
+	   chaitanya2021/my_ubuntu_python_image: username_of_docker_hub/new_image_name
+
+
+
+41. push image to docker hub
+step1. docker login
+step2. enter username and password
+step3. docker push chaitanya2021/my_ubuntu_python_image
+
+
+42. pull image from docker
+docker pull chaitanya2021/my_ubuntu_python_image
+
+43. to see image list
+	1. docker images
+	2. docker image ls
+
+
+44. to see history of an image
+docker image history my_ubuntu_python_image
+where;
+my_ubuntu_python_image: image name
+
+
+45. remove docker image
+	1. docker image rm my_ubuntu_python_image		[method1, where; my_ubuntu_python_image is image_name or image_id]
+	2. docker rmi my_ubuntu_python_image			[method2, where; my_ubuntu_python_image is image_name or image_id]
+	3. docker image rm my_ubuntu_python_image:latest	[latest tag is optional as long as dont have two image names with same name]
+	4. docker image rm my_ubuntu_python_image
+	5. docker image rm -f my_ubuntu_python_image		[-f: removes images forcefully]
+
+46. image inspect
+	1. docker image inspect ubuntu				[where; ubuntu is an image name]
+	2. docker image inspect 7e0aa2d69a15			[where; 7e0aa2d69a15 is an image id]
+    these commands display detailed information of an image
+
+47. docker image prune						[deletes all the images]
+
+
+48. ls view format	(this point is useless, i know you are never going to use it)
+	- docker image ls	[this command shows list of images and some related information like: image_id, size, created on, tag etc...]
+	- but when you use format, you can show only that info what you want to see
+docker image ls --format '{{ .Repository}} -------- {{ .Tag }} | {{ .ID }}'
+where;
+{{ .Repository}}: is a column name
+{{ .Tag }}: is a column name
+{{ .ID }}: is a column name
+
+--------: column separator
+|: column separator
+
+
+49. save/load image
+
+save
+----
+docker image save my_test_docker_image -o Desktop/save_docker_image.tar
+this command will save the image at given location
+where;
+my_test_docker_image: name of image that you already have
+-o: output
+Desktop/: location where you want to save the image
+save_docker_image_.tar: the name of tar file
+all above looks same like exporting container
+
+
+load
+----
+docker load -i Desktop/save_docker_image.tar
+this command will create an image from tar file (save_docker_image.tar) and the image will be named 'my_test_docker_image' automatically 
+where;
+-i: input
+Desktop/: location
+save_docker_image.tar: tar file
+
+
+difference between "export container" and "save image":
+	- exported tar file only contains file structure
+	- saved file contains all history, metadata, layer which increases the size of image
+
+	- export/import is done on a container
+	- save/load is doine on an image
+
+but at what to use when is still a question
+
+
+
+50. Dockerfile
+	- build command looks into this file, in same directory
+	- you can change the name of Dockerfile but you need to add -f in command
+docker image build -t rebuilt_ubuntu:1 .
+this image will create an image based on things specified in Dockerfile
+where;
+rebuilt_ubuntu: name of the image to be created
+1: tag
+.(dot): docker file is available in current working directory
+
+To see Dockerfile look into the folder DockerFolder 1
+
+
+
+51. Docker label, env, workdir
+To see Dockerfile look into the folder DockerFolder 2
+
+
+52. 
+	1. ls: this command shows all folders and file in current directory 
+	2. ls <path>: this command shows all folders and file at path location
+

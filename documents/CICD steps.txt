@@ -1,0 +1,14 @@
+CD constant deployment
+----------------------
+
+1. download and install heroku cli
+2. open terminal and check if heroku is installed: heroku --version
+
+now git hub wants some authentications to interact with heroku, that is usually done with heroku login.
+but in case of automation we have to provide something as a way of authentication that is when token comes in picture.
+3. heroku authorizations:create	[this command will create a token which will used by yml to interact with heroku to deploy our app]
+	                        [example, Token:       1ecf254b-d9ae-47aa-8266-5bf506d411a3]
+now this token can be put in yml but this will be hardcoded and visible when repository is public, which is not a good thing so git hub provides somthing called 'secrets'
+
+
+be7897bd-d2c6-47fa-b1ef-cd5047246673

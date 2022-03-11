@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table border="1" width="50%">
+    <tr>
+        <th>book name</th>
+        <th>view</th>
+        <th>delete</th>
+        <th>update</th>
+    </tr>
+    {% for document in documents %}
+        <tr>
+            <td>{{document.book_name}}</td>
+            <td><a href="{{ url_for('get_book', book_id=document._id) }}">View</a></td>
+            <td><a href="{{ url_for('delete_book', book_id=document._id) }}">delete</a></td>
+            <td><a href="{{ url_for('update_book', book_id=document._id) }}">update</a></td>
+        </tr>
+    {% endfor %}
+</table>
+<br>
+<a href="{{ url_for('add_book') }}">add new book</a>
+</body>
+</html>

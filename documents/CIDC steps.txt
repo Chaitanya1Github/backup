@@ -1,0 +1,26 @@
+1. create project as usual
+2. install flake8, which increses code quality
+3. pip install flake8
+4. create a file named setup.cfg, to void files and folder not to be checked
+5. run command: 'flake8', and it will generate a report where correction is needed
+
+6. install coverage to do unit testing. it goes in tests.py file to see tests written over there.
+7. pip install coverage
+8. run command: coverage run manage.py test
+9. run command: 'coverage report', and it will show where potentially testing is required
+10. run command: 'coverage html', this will create htmlcov folder [put this htmlcov folder in .gitignore]
+11. open this folder from local disks and open index.html file and it show where testing is required under missing column
+12. run command: coverage run --omit='*/venv/*' manage.py test		[this will exclude this folder to see if tests are required]
+13. run command: coverage html						[this time htmlcov folder without venv will be generated]
+14. again go into the folder and look for index.html file and open it
+15. now you know where test is required so you can go ahead and write tests accordingly
+16. py manage.py test		[this will show how many tests you ran]
+
+
+17. go to github account choose workflow file, commit.
+18. you should be able to see .github/workflows/.yml
+
+19. come back in terminal and pullthe repository: git pull origin master
+20. now you should be able to see .github folder in pycharm
+
+	

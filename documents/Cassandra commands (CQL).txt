@@ -1,0 +1,29 @@
+1. docker images (to see downloaded images)
+2. docker run --name container1 -p 9042:9042 cassandra (to create container)
+3. ctrl+c (to stop container's logs)
+4. docker ps (to see curently runninng container)
+5. docker exec -it container1 bash (to log into the container)
+6. cqlsh (to use cassandra query language commands)
+7. CREATE KEYSPACE cluster1 WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}; (to create keyspace/database/replication strategy)
+8. describe keyspace cluster1 (to check the created keyspace)
+9. select * from system_schema.keyspaces; (to see all keyspaces)
+10. select * from system_schema.keyspaces where keyspace_name='cluster1'; (to see particular keyspace)
+11. use cluster1; (just like use db)
+12. CREATE TABLE cluster1.emp_table (emp_id int PRIMARY KEY, name text, city text); ---> (create table)
+13. select * from system_schema.tables WHERE keyspace_name='cluster1'; ---> (to see the table)
+14. insert into emp_table(emp_id, name, city) values(01, 'Chaitanya', 'Pune');  ----> (insert data in table)
+15. select * from emp_table; (see the data in table)
+
+16. PS C:\Users\Chaitanya> docker container stop container1  (to stop container)
+17. type 4th command to very if conatiner has really stopped.
+18. PS C:\Users\Chaitanya> docker container start container1 (to start container)
+19. docker container ls -all (to see number of created containers)
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+select * from employee
+
+
+
+
+

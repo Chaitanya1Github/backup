@@ -1,0 +1,106 @@
+why to use docker?
+while we install software, or run something we may find errors, after searching alot we may fix the error.
+but when same piece of code given to someone we may find errors again because of different environment.
+this fix this differnce of environment we use docker. because docker has its own resouces and once we set up everthing according to that resources.
+we are good to give this container to anyone and problems will not occur again. the piece of code becomes universal for everyone.
+
+image:
+it is file contains some code to create container.
+
+container:
+container a machine which has its resources. Actually it makes of your machine`s resources.
+Ex: it makes use your machine`s memory, hard disc, CPU. And shows itself like differnt machine.
+So make sure when so many containers are running at the same time, they consume your resources and slow down your computer.
+when the container is created from image, the resources are allocated to it by Kernel. 
+ 
+
+docker client and docker server:
+whenever you run any command, you speak with "docker client" and then "docker client" speaks with "docker server"
+In response docker server responds to docker client and docker client shows you the end result.
+docker client is our machine(os: windows), and docker server is server machine or daemon(os: linux)
+
+docker hub:
+it is a collection of softwares(images). when you want to download any image, docker checks that image in docker hub and brings that images in your cache.
+so next time if you want to run any image, docker server will check that image presence in cache, otherwise it will download from docker hub.
+
+
+docker commands:
+
+1. docker version
+to show version and see client and server info
+
+2. docker run hello-world
+this will pull and run image locally(pull from cache), if not found in cache then it will pull from internet(docker hub)
+whenever we use docker run, the default start up command gets run, example: python app.py
+
+3. how to replace startup command:
+if you do: docker run busybox" the busy box image will be fetched and run with defalut start up command
+if you do: "docker run busybox echo hello baby", it means, busybox container will be created by replacing its startup command with "echo hello baby".
+if you do: "docker run busybox ls", same thing will happen, ls command will be executed.
+
+
+4. docker ps or docker container ls
+shows only running containers
+
+5. docker ps --all or docker container ls -a
+shows all containers running as well as stopped
+
+6. docker stop <container_id>
+stop the running container
+
+7. docker run, this command is made up of two commands docker create and docker start.
+	7.1 docker create hello-world: this command will create container from image hello-world(but won`t run that container)
+	7.2 docker start <container_id>: this command runs your container
+	7.3 docker start -a <container_id>: this runs your container and keeps you attached, shows logs and other information, your terminal gets freezed
+
+8. docker logs <container_id>
+this command shows logs of the container
+
+9. docker kill <container_id>
+this command stops container forcefully
+  
+10. docker exec -i -t <container_id> sh
+this command allows you to enter in file system of the container
+
+---------------------------------------------------------------------------------------------
+Dockerfile
+
+-> dockerfile contains all the information for running your software in a base container.
+-> image is made up of two things: file snapshot and startup command.
+
+How to create a custom image:
+1. choose a base image
+2. run commands for your software
+3. specify the base command to be at startup
+---------------------------------------------------------------------------------------------
+
+11. docker build .
+this is to build the image, this build will look for Dockerfile in specified directory, here .(dot) addresses that the Dockerfile is to be found in current directory
+
+12. docker build -t <your-name>/<image-name>:<verion-name> .
+this is just a way to name your image, other wise every this is same functionality wise.
+-t is tag name
+
+13. docker run <your-name>/<image-name>:<version-name>
+this will run specific version of your image.
+
+14. docker commit -c 'CMD "<your-startup-command>"' <container_id>
+this is used to run the startup command in present conatiner, conditionally the container must be already running.
+this is not so useful, it is useful when used in dockerfile.
+
+
+
+
+Theory
+------
+------
+
+volume:
+there are two types of volumes.
+1. to keep data persistant
+2. to sync host machine and container, so the changes in host machine can be reflected in container running, this helps in development environment. 
+
+
+network:
+when you want two or more services to talk to each other. You need to create a bridge as a medium.
+

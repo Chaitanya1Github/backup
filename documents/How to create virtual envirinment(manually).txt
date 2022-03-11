@@ -1,0 +1,44 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Virtual Environment
+-------------------
+
+1. create a folder    (it is the name of virtual environment folder)
+2. open that folder
+3. press shift + right click
+4. select power shell
+5. check if you have "virtualenv" already installed(pip list) in your base python. Because, this package is used to create virtual environment. If you dont have this package then install it using "pip install virtualenv".
+6. virtualenv venv    (this is the command to create vrtual environment, venv is name of my folder you can give any name)
+7. type this: "venv" hit tab then type "sc" hit tab, then type "a" hit tab. this way will reach to activate file. Finally hit enter and your virtual environemnt will be activated. if you get any error then follow the below step.
+	7.1 right click on start button
+	7.2 open shell as an admin
+	7.3 type this: 'set-executionpolicy remotesigned' then hit enter
+	7.4 exit this shell window
+	7.5 also exit your venv shell window
+	7.6 follow all the steps of point 7 and venv will be activated
+8. simply type 'deactivate' to deactivate the virtual environment
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+create requirements.txt
+-------------------
+1. make sure you are in virtual environment then type this command: "pip freeze > requirements.txt", and requirements.txt will be created.
+	[so when ever you want to give this project to someone you wont give entire virtual environment instead you will give just this file]
+if you are not in virtual environment then base python`s packages will be mentioned in requirements.txt
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+use requirements.txt
+-------------------
+1. paste requirements.txt file next to venv
+2. type this command: "pip install -r req" hit tab or "pip install -r requirements.txt" hit enter and all the mentioned packages will be installed.   
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Create Virtual Environment which contains all the packages of base interpretor
+----------------------------------------------------------------------------
+1. "virtualenv --system-site-packages venv1" hit enter
+2. type this: "venv1" hit tab then type "sc" hit tab, then type "a" hit tab. this way will reach to activate file. Finally hit enter and your virtual environemnt will be activated.

@@ -1,0 +1,13 @@
+dockerize app, after creating it.
+
+1. create a django app as usual.
+2. create a Dockerfile in django project		[explaination is given in file itself]
+3. create a docker-compose file in django project	[explaination is given in file itself]
+4. create requirememts.txt file
+5. in terminal type: 
+	1. docker-compose build		[this commnad builds image]	
+	2. docker-compose up		[this commnad start the docker container using same image]
+
+
+if you want to visit into your container use following command and play with file system
+docker container exec -it 4c00d4b47c0b /bin/bash

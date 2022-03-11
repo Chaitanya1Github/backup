@@ -1,0 +1,20 @@
+1. nodetool status (to check on what instance and what cassandra is running) this can be executed only after 5th command ie after logging in. after executing this command the understand the result watch the video ---> https://www.youtube.com/watch?v=yyVbDBSMnUw&list=PLalrWAGybpB-L1PGA-NfFu2uiWHEsdscD&index=7
+2. cqlsh (to run cql commands)
+
+3. CREATE KEYSPACE cluster1 WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1}; (to create keyspace)
+keyspace is like a database. SimpleStrategy is one the methods to create keyspace. replication_factor is like how many replicas you want to create.
+or
+CREATE KEYSPACE cluster1 WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1} AND durable_writes = 'true'; 
+by default durable_writes is set to true. but if we set it to false, it will increase the speed of writing but at the same time it will also increase the risk of data loss.
+
+`
+4. select * from system_schema.keyspaces (shows more information); 
+or
+describe keyspaces; (to see keyspaces)
+
+5. drop keyspace cluster1; (to delete the keyspace)
+
+6. use cluster1; (to use the keyspace)
+
+
+

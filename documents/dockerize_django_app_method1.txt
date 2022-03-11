@@ -1,0 +1,31 @@
+builing app from scratch in container itself.
+not like creating app first on your machine and then dockerizing it.
+
+
+1. create Dockerfile
+2. create docker-compose.yml
+3. create requirements.txt file
+
+
+
+Now start creating django project as:
+
+1. docker-compose run web django-admin startproject docker_django1 .		[web is a service name]
+
+2. docker-compose up								[this will start you container, and your django app as well]
+tip: you can literally visit browser and type: "127.0.0.1:1234", to see django app up and running.
+
+
+3. docker exec 4c00d4b47c0b python manage.py startapp app1
+exec command of docker is used to execute commnads on existing container without creating a new one. 4c00d4b47c0b is the ID of container
+
+4. docker exec 4c00d4b47c0b python manage.py makemigrations
+
+5. docker exec 4c00d4b47c0b python manage.py migrate
+
+6. python manage.py createsuperuser
+
+
+if you want to visit into your container use following command and play with file system
+docker container exec -it 4c00d4b47c0b /bin/bash
+where 4c00d4b47c0b is an id of the container
